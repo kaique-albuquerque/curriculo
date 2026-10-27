@@ -45,6 +45,9 @@ scripts/
   check-pdf.mjs      Valida páginas, contatos e textos proibidos nos PDFs
   generate-og.mjs    Gera public/og-image.png (1200x630)
 
+bin/
+  ntl.mjs            Menu interativo de comandos do projeto (comando `ntl`)
+
 public/
   profile.png
   kaique-albuquerque-curriculo-pt.pdf
@@ -186,6 +189,59 @@ Pontos importantes:
 - O bloco de impressão usa `html { font-size: 10px }` para caber em 2 páginas A4; aumentar esse valor quebra o limite validado por `check:pdf`.
 - A linha `.print-contact` aparece apenas no PDF, com URLs e telefone em texto puro para ATS e impressão.
 - Botões, seletor de tema/idioma, navegação e footer ficam ocultos no PDF.
+
+## Menu rápido (`ntl`)
+
+O projeto tem um menu interativo com os comandos do dia a dia. Na raiz do repositório:
+
+```bash
+ntl
+```
+
+Se `ntl` ainda não estiver no PATH da sua máquina, rode uma vez:
+
+```bash
+npm link
+```
+
+Ou use as alternativas, que sempre funcionam:
+
+```bash
+.\ntl          # PowerShell / cmd
+npm run ntl
+```
+
+O menu mostra no topo o estado do git (branch, alterações pendentes, commits não enviados) e a conta logada no Firebase. As opções:
+
+| Opção | Ação |
+| --- | --- |
+| 1 | Ver o site localmente (`npm run dev`) |
+| 2 | Rodar os testes |
+| 3 | Gerar os PDFs |
+| 4 | Validar os PDFs |
+| 5 | Build completo |
+| 6 | Publicar preview (sem afetar produção) |
+| 7 | Publicar em produção (pede confirmação) |
+| 8 | Status do hosting |
+| 9 | Abrir o site em produção |
+| 10 | Abrir o console do Firebase |
+| 11 | Como voltar para a versão anterior |
+| 12 | Entrar no Firebase / trocar de conta |
+| 13 | Onde editar cada coisa |
+| 14 | Erros comuns e o que fazer |
+| 15 | Trocar o domínio do site |
+| 16 | Estado do git |
+
+Também aceita atalho direto, sem menu:
+
+```bash
+ntl build
+ntl deploy
+ntl preview
+ntl dev
+ntl test
+ntl status
+```
 
 ## Publicação (Firebase Hosting)
 
