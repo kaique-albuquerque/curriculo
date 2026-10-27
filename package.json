@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "generate:pdf": "node scripts/generate-pdf.mjs",
-    "build": "npm run generate:pdf && tsc -b && vite build",
+    "check:pdf": "node scripts/check-pdf.mjs",
+    "build": "npm run generate:pdf && npm run check:pdf && tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
