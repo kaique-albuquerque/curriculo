@@ -47,6 +47,7 @@ export const pt: Content = {
     certificates: "Certificados",
     certificatesHeading: "Cursos com certificado",
     languages: "Idiomas",
+    languageProof: "comprovante",
     contactHeading: "Contato",
     available:
       "Disponível para oportunidades em produto, dados e engenharia de software.",
@@ -269,5 +270,11 @@ export const pt: Content = {
   languages: [
     { name: "Português", level: "Nativo" },
     { name: "Inglês", level: "A2 — em evolução para B1" },
+    {
+      name: "Espanhol",
+      level: "B1",
+      issuer: "SIELE",
+      url: "https://drive.google.com/file/d/19CObvEgNUtG2Nzq72OdcDkqfSzZxu8Og/view?usp=sharing",
+    },
   ],
 };

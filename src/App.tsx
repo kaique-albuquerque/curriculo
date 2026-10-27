@@ -284,6 +284,20 @@ function App() {
               {t.languages.map((language) => (
                 <li key={language.name}>
                   <strong>{language.name}</strong> — {language.level}
+                  {language.issuer ? ` (${language.issuer})` : null}
+                  {language.url ? (
+                    <>
+                      {" · "}
+                      <a
+                        className="language-proof"
+                        href={language.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t.labels.languageProof}
+                      </a>
+                    </>
+                  ) : null}
                 </li>
               ))}
             </ul>

@@ -94,3 +94,31 @@ describe.each(Object.entries(contents))("%s projetos com prova publica", (locale
     );
   });
 });
+
+describe.each(Object.entries(contents))("%s idiomas", (locale, content) => {
+  test("espanhol aparece como B1 com comprovante do SIELE", () => {
+    const spanish = content.languages.find((language) =>
+      locale === "pt" ? language.name === "Espanhol" : language.name === "Spanish",
+    );
+
+    expect(spanish).toBeDefined();
+    expect(spanish?.level).toBe("B1");
+    expect(spanish?.issuer).toBe("SIELE");
+    expect(spanish?.url).toBe(
+      "https://drive.google.com/file/d/19CObvEgNUtG2Nzq72OdcDkqfSzZxu8Og/view?usp=sharing",
+    );
+  });
+
+  test("todo idioma com comprovante usa https", () => {
+    for (const language of content.languages) {
+      if (language.url) {
+        expect(language.url.startsWith("https://")).toBe(true);
+        expect(language.issuer?.trim()).toBeTruthy();
+      }
+    }
+  });
+
+  test("existe rotulo para o comprovante", () => {
+    expect(content.labels.languageProof.trim()).not.toBe("");
+  });
+});

@@ -79,4 +79,21 @@ describe("App", () => {
     expect(document.documentElement.lang).toBe("en");
     expect(screen.getByRole("heading", { name: /Selected projects/ })).not.toBeNull();
   });
+
+  test("mostra espanhol B1 com link do comprovante", () => {
+    const { container } = render(<App />);
+    const items = [...container.querySelectorAll(".language-list li")].map(
+      (item) => item.textContent ?? "",
+    );
+    const spanish = items.find((item) => item.includes("Espanhol"));
+
+    expect(spanish).toContain("B1");
+    expect(spanish).toContain("SIELE");
+
+    const links = [...container.querySelectorAll(".language-list a")];
+    expect(links).toHaveLength(1);
+    expect(links[0].getAttribute("href")).toContain("19CObvEgNUtG2Nzq72OdcDkqfSzZxu8Og");
+    expect(links[0].getAttribute("target")).toBe("_blank");
+    expect(links[0].getAttribute("rel")).toContain("noopener");
+  });
 });

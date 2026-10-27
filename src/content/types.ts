@@ -45,6 +45,8 @@ export type NavItem = {
 export type Language = {
   name: string;
   level: string;
+  issuer?: string;
+  url?: string;
 };
 
 export type Profile = {
@@ -85,6 +87,7 @@ export type Labels = {
   certificates: string;
   certificatesHeading: string;
   languages: string;
+  languageProof: string;
   contactHeading: string;
   available: string;
 };
