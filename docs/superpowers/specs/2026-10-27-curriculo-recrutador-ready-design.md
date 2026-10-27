@@ -41,12 +41,12 @@ Auditoria do curriculo atual (codigo, PDF gerado, site publicado em `https://cka
 | LinkedIn | `https://www.linkedin.com/in/kaique-dias/` |
 | Telefone (derivado do link do WhatsApp) | +55 (18) 98810-3982 |
 | Localizacao | Birigui - SP |
+| Nivel de ingles | A2, em evolucao para B1 |
 
 ## Dados pendentes (omitir enquanto ausentes)
 
 | Item | Comportamento quando ausente | Secao afetada |
 | --- | --- | --- |
-| Nivel de ingles | `languages: []` e a secao nao e renderizada | Idiomas |
 | Instituicao da pos-graduacao | `institution` omitido no card | Formacao |
 | Status/data final do curso Power BI | `period: "jan/2023"`, sem `status` | Formacao |
 
@@ -194,7 +194,14 @@ Ferramentas: Git, GitHub, Playwright
 
 As URLs do Google Drive de cada certificado ficam inalteradas.
 
-**PT-11 Rotulos de interface**
+**PT-11 Idiomas**
+
+```text
+Português | Nativo
+Inglês | A2 — em evolução para B1
+```
+
+**PT-12 Rotulos de interface**
 
 ```text
 nav: Experiência, Projetos, Stack, Formação, Contato
@@ -290,7 +297,14 @@ Full-stack developer with 4 years in IT. At Pluma Genetics I moved from administ
 
 **EN-7 Certificados**: mesmos 6 titulos de PT-10 em ingles.
 
-**EN-8 Rotulos de interface**
+**EN-9 Idiomas**
+
+```text
+Portuguese | Native
+English | A2 — working towards B1
+```
+
+**EN-10 Rotulos de interface**
 
 ```text
 nav: Experience, Projects, Stack, Education, Contact

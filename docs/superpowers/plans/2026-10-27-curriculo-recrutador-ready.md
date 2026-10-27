@@ -24,7 +24,7 @@
 
 - `?lang=xx` (valor invalido) deve cair para `pt` sem quebrar a renderizacao — testado em Task 3.
 - `localStorage["curriculo-locale"]` com valor arbitrario/antigo deve ser ignorado, nao usado como locale — testado em Task 3.
-- Conteudo opcional ausente (idiomas vazio, `institution`/`status` vazios) nao deve renderizar secao vazia nem `undefined` — testado em Task 4.
+- Conteudo opcional ausente (`institution`/`status` vazios) nao deve renderizar rotulo vazio nem `undefined` — testado em Task 4.
 - Curriculo que cresce (novo emprego, novo certificado) deve falhar de forma explicita quando o PDF passar de 2 paginas, em vez de gerar paginacao quebrada — testado em Task 6.
 - Extracao de texto do PDF com acentos deve devolver URLs e telefone intactos, para ATS e para quem imprime — testado em Task 6.
 
@@ -309,9 +309,9 @@ export type Content = {
 - `skillGroups` → spec PT-8
 - `education` → spec PT-9, com `institution: ""` e `status: "Em andamento"` no item 1, `status: ""` e `period: "jan/2023"` no item 3
 - `certificates` → spec PT-10 mantendo as URLs atuais de `src/data.ts`
-- `labels` → spec PT-11
+- `labels` → spec PT-12
 - `navItems: [{ label: "Experiência", href: "#experiencia" }, { label: "Projetos", href: "#projetos" }, { label: "Stack", href: "#stack" }, { label: "Formação", href: "#formacao" }, { label: "Contato", href: "#contato" }]`
-- `languages: []`
+- `languages` → spec PT-11
 
 - [ ] **Step 3: Rodar os testes de conteudo**
 
@@ -393,11 +393,11 @@ Expected: FAIL com `Failed to resolve import "./locale"`.
 - `skillGroups` → spec EN-5
 - `education` → spec EN-6
 - `certificates` → spec EN-7, mesmas URLs
-- `labels` → spec EN-8
+- `labels` → spec EN-10
 - `meta.title: "Kaique Albuquerque — Resume"` e `meta.description: "Resume of Kaique Albuquerque: full-stack developer with 4 years in IT, working with React, TypeScript, Node.js and data."`
 - `profile.printContact` e `profile.phone` identicos aos de `pt`
 - `navItems` com os mesmos `href` de `pt` e labels traduzidos
-- `languages: []`
+- `languages` → spec EN-9
 
 - [ ] **Step 5: Rodar todos os testes**
 
@@ -451,9 +451,15 @@ describe("App", () => {
     expect(screen.queryByRole("heading", { name: /^Objetivo$/i })).toBeNull();
   });
 
-  test("nao renderiza secao de idiomas quando a lista esta vazia", () => {
+  test("mostra os idiomas com nivel", () => {
     render(<App />);
-    expect(screen.queryByRole("heading", { name: /Idiomas/ })).toBeNull();
+    expect(screen.getByRole("heading", { name: /Idiomas/ })).not.toBeNull();
+    expect(screen.getAllByText(/A2/).length).toBeGreaterThanOrEqual(1);
+  });
+
+  test("nao imprime campos opcionais vazios", () => {
+    render(<App />);
+    expect(screen.queryByText(/undefined/)).toBeNull();
   });
 
   test("troca para ingles e atualiza o documento", async () => {
