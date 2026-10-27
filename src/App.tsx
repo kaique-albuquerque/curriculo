@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  certificates,
-  education,
-  experiences,
-  highlights,
-  navItems,
-  profile,
-  projects,
-  skillGroups,
-} from "./data";
+import { getContent } from "./content";
+import type { Profile } from "./content/types";
+import { SUPPORTED_LOCALES, useLocale } from "./i18n/locale";
 
 type ThemeMode = "auto" | "light" | "dark";
 
@@ -18,7 +11,20 @@ const themeOptions: Array<{ value: ThemeMode; label: string }> = [
   { value: "dark", label: "Escuro" },
 ];
 
+const themeGroupLabel: Record<string, string> = {
+  pt: "Selecionar tema",
+  en: "Select theme",
+};
+
+const localeGroupLabel: Record<string, string> = {
+  pt: "Selecionar idioma",
+  en: "Select language",
+};
+
 function App() {
+  const [locale, setLocale] = useLocale();
+  const t = getContent(locale);
+
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
     const saved = window.localStorage.getItem("theme-mode");
 
@@ -54,12 +60,13 @@ function App() {
   }, [themeMode]);
 
   return (
-    <div className="page-shell">
+    <div className="page-shell" data-locale={locale}>
       <header className="hero" id="topo">
         <div className="hero-copy">
+          <p className="print-contact">{t.profile.printContact}</p>
+
           <div className="hero-topbar">
-            <span className="eyebrow">Curriculo Online</span>
-            <div className="theme-switcher" role="group" aria-label="Selecionar tema">
+            <div className="theme-switcher" role="group" aria-label={themeGroupLabel[locale]}>
               {themeOptions.map((option) => (
                 <button
                   key={option.value}
@@ -72,40 +79,56 @@ function App() {
                 </button>
               ))}
             </div>
+
+            <div className="locale-switcher" role="group" aria-label={localeGroupLabel[locale]}>
+              {SUPPORTED_LOCALES.map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  className={option === locale ? "locale-option is-active" : "locale-option"}
+                  onClick={() => setLocale(option)}
+                  aria-pressed={option === locale}
+                >
+                  {option.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="hero-main">
-            <p className="hero-kicker">Front-end / Full-stack</p>
-            <h1>{profile.name}</h1>
-            <p className="hero-title">{profile.title}</p>
-            <p className="hero-text">{profile.intro}</p>
+            <h1>{t.profile.name}</h1>
+            <p className="hero-title">{t.profile.title}</p>
+            <p className="hero-text">{t.profile.summary}</p>
           </div>
 
-          <div className="hero-actions" aria-label="Acoes principais">
-            <a href={profile.resumePdf} className="button button-primary" download>
-              Baixar PDF
+          <div className="hero-actions">
+            <a href={t.profile.resumePdf} className="button button-primary" download>
+              {t.labels.downloadPdf}
             </a>
-            <a href="#projetos" className="button button-secondary">
-              Ver projetos
-            </a>
-            <a href={`mailto:${profile.email}`} className="button button-ghost">
-              Entrar em contato
+            <a
+              href={t.profile.github}
+              className="button button-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
             </a>
           </div>
 
-          <SocialLinks className="social-links" />
+          <SocialLinks className="social-links" profile={t.profile} />
         </div>
 
-        <aside className="hero-card" aria-label="Resumo de contato e stack">
-          <img src="/profile.png" alt={`Foto de ${profile.name}`} className="profile-image" />
+        <aside className="hero-card">
+          <img src="/profile.png" alt={t.profile.name} className="profile-image" />
           <div className="hero-meta">
-            <p>{profile.location}</p>
-            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <p>{t.profile.location}</p>
+            <a href={`mailto:${t.profile.email}`}>{t.profile.email}</a>
+            <a href={`tel:${t.profile.phone.replace(/[^+\d]/g, "")}`}>{t.profile.phone}</a>
           </div>
           <div className="hero-skills">
-            <span className="section-label">Stack curta</span>
+            <span className="section-label">{t.labels.stack}</span>
             <ul className="focus-list">
-              {profile.focus.map((item) => (
+              {t.profile.focus.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -113,8 +136,8 @@ function App() {
         </aside>
       </header>
 
-      <nav className="section-nav" aria-label="Navegacao principal do curriculo">
-        {navItems.map((item) => (
+      <nav className="section-nav">
+        {t.navItems.map((item) => (
           <a key={item.href} href={item.href}>
             {item.label}
           </a>
@@ -122,95 +145,73 @@ function App() {
       </nav>
 
       <main className="content">
-        <section className="highlight-strip" aria-label="Destaques profissionais">
-          {highlights.map((item) => (
-            <div className="highlight-item" key={`${item.value}-${item.label}`}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </section>
-
-        <section className="panel panel-highlight" aria-labelledby="objetivo-title">
-          <span className="section-label">Objetivo</span>
-          <h2 id="objetivo-title">Produtos digitais com impacto operacional</h2>
-          <p>{profile.objective}</p>
-        </section>
-
-        <section className="work-grid" aria-label="Experiencia e projetos">
-          <div id="experiencia" className="content-grid" aria-labelledby="experiencia-title">
-            <div className="section-heading">
-              <span className="section-label">Experiencia</span>
-              <h2 id="experiencia-title">Entrega tecnica em ambiente corporativo</h2>
-            </div>
-            <div className="timeline">
-              {experiences.map((job) => (
-                <article className="timeline-item" key={`${job.role}-${job.period}`}>
-                  <div className="timeline-marker" aria-hidden="true" />
-                  <div className="timeline-card">
-                    <div className="timeline-header">
-                      <div>
-                        <h3>{job.role}</h3>
-                        <p>{job.summary}</p>
-                      </div>
-                      <span>{job.period}</span>
-                    </div>
-                    <ul>
-                      {job.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <section id="experiencia" className="content-grid" aria-labelledby="experiencia-title">
+          <div className="section-heading">
+            <span className="section-label">{t.labels.experience}</span>
+            <h2 id="experiencia-title">{t.labels.experienceHeading}</h2>
           </div>
-
-          <section id="projetos" className="content-grid" aria-labelledby="projetos-title">
-            <div className="section-heading">
-              <span className="section-label">Projetos</span>
-              <h2 id="projetos-title">Cases aplicados e prova tecnica</h2>
-            </div>
-            <div className="project-grid">
-              {projects.map((project) => (
-                <article className="project-card" key={project.title}>
-                  <div className="project-card-header">
-                    <span>{project.type}</span>
-                    <h3>{project.title}</h3>
+          <div className="timeline">
+            {t.experiences.map((job) => (
+              <article className="timeline-item" key={`${job.company}-${job.role}-${job.period}`}>
+                <div className="timeline-marker" aria-hidden="true" />
+                <div className="timeline-card">
+                  <div className="timeline-header">
+                    <div>
+                      <h3>{job.role}</h3>
+                      <p className="timeline-company">{job.company}</p>
+                      <p>{job.summary}</p>
+                    </div>
+                    <span>{job.period}</span>
                   </div>
-                  <p>{project.description}</p>
-                  <p className="project-impact">{project.impact}</p>
-                  <ul className="project-stack" aria-label={`Stack do projeto ${project.title}`}>
-                    {project.stack.map((item) => (
-                      <li key={item}>{item}</li>
+                  <ul>
+                    {job.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
                     ))}
                   </ul>
-                  {project.links.length > 0 ? (
-                    <div className="project-links">
-                      {project.links.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${link.label} de ${project.title} em nova aba`}
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-          </section>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="projetos" className="content-grid" aria-labelledby="projetos-title">
+          <div className="section-heading">
+            <span className="section-label">{t.labels.projects}</span>
+            <h2 id="projetos-title">{t.labels.projectsHeading}</h2>
+          </div>
+          <div className="project-grid">
+            {t.projects.map((project) => (
+              <article className="project-card" key={project.title}>
+                <div className="project-card-header">
+                  <span>{project.context}</span>
+                  <h3>{project.title}</h3>
+                </div>
+                <p>{project.description}</p>
+                <p className="project-impact">{project.impact}</p>
+                <ul className="project-stack">
+                  {project.stack.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+                {project.links.length > 0 ? (
+                  <div className="project-links">
+                    {project.links.map((link) => (
+                      <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </article>
+            ))}
+          </div>
         </section>
 
         <section id="stack" className="panel" aria-labelledby="stack-title">
-          <span className="section-label">Stack</span>
-          <h2 id="stack-title">Competencias organizadas por area</h2>
+          <span className="section-label">{t.labels.stack}</span>
+          <h2 id="stack-title">{t.labels.stackHeading}</h2>
           <div className="skill-grid">
-            {skillGroups.map((group) => (
+            {t.skillGroups.map((group) => (
               <article className="skill-card" key={group.title}>
                 <h3>{group.title}</h3>
                 <ul>
@@ -223,59 +224,71 @@ function App() {
           </div>
         </section>
 
-        <section id="formacao" className="dual-grid" aria-label="Formacao e certificados">
-          <article className="panel" aria-labelledby="formacao-title">
-            <span className="section-label">Formacao</span>
-            <h2 id="formacao-title">Base academica e evolucao continua</h2>
+        <div className="dual-grid">
+          <section id="formacao" className="panel" aria-labelledby="formacao-title">
+            <span className="section-label">{t.labels.education}</span>
+            <h2 id="formacao-title">{t.labels.educationHeading}</h2>
             <div className="stack-list">
-              {education.map((item) => (
+              {t.education.map((item) => (
                 <div className="stack-item" key={`${item.title}-${item.period}`}>
                   <div className="stack-header">
                     <h3>{item.title}</h3>
                     <span>{item.period}</span>
                   </div>
-                  <p className="stack-subtitle">{item.institution}</p>
+                  {item.institution ? <p className="stack-subtitle">{item.institution}</p> : null}
                   <p>{item.details}</p>
                   {item.status ? <strong>{item.status}</strong> : null}
                 </div>
               ))}
             </div>
-          </article>
+          </section>
 
-          <article className="panel" aria-labelledby="certificados-title">
-            <span className="section-label">Certificados</span>
-            <h2 id="certificados-title">Complementos relevantes</h2>
+          <section className="panel" aria-labelledby="certificados-title">
+            <span className="section-label">{t.labels.certificates}</span>
+            <h2 id="certificados-title">{t.labels.certificatesHeading}</h2>
             <div className="certificate-list">
-              {certificates.map((certificate) => (
+              {t.certificates.map((certificate) => (
                 <a
                   key={certificate.title}
-                  className={certificate.priority ? "certificate-card is-priority" : "certificate-card"}
+                  className="certificate-card"
                   href={certificate.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Abrir certificado ${certificate.title} em nova aba`}
                 >
-                  <span>{certificate.priority ? "Prioritario" : "Certificado"}</span>
                   <strong>{certificate.title}</strong>
                 </a>
               ))}
             </div>
-          </article>
-        </section>
+          </section>
+        </div>
+
+        {t.languages.length > 0 ? (
+          <section id="idiomas" className="panel" aria-labelledby="idiomas-title">
+            <span className="section-label">{t.labels.languages}</span>
+            <h2 id="idiomas-title">{t.labels.languages}</h2>
+            <ul className="language-list">
+              {t.languages.map((language) => (
+                <li key={language.name}>
+                  <strong>{language.name}</strong> — {language.level}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </main>
 
       <footer id="contato" className="site-footer">
         <div className="footer-brand">
-          <strong>{profile.name}</strong>
-          <p>{profile.title}</p>
+          <strong>{t.profile.name}</strong>
+          <p>{t.profile.title}</p>
         </div>
         <div className="footer-cta">
-          <p className="footer-note">Disponivel para oportunidades, parcerias e projetos.</p>
-          <a href={profile.resumePdf} className="button button-primary" download>
-            Baixar PDF
+          <p className="footer-note">{t.labels.available}</p>
+          <a href={t.profile.resumePdf} className="button button-primary" download>
+            {t.labels.downloadPdf}
           </a>
         </div>
-        <SocialLinks className="footer-links" />
+        <SocialLinks className="footer-links" profile={t.profile} />
       </footer>
     </div>
   );
@@ -283,16 +296,17 @@ function App() {
 
 type SocialLinksProps = {
   className: string;
+  profile: Profile;
 };
 
-function SocialLinks({ className }: SocialLinksProps) {
+function SocialLinks({ className, profile }: SocialLinksProps) {
   return (
     <div className={className}>
       <a
         href={profile.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Abrir LinkedIn de Kaique Albuquerque em nova aba"
+        aria-label={`LinkedIn - ${profile.name}`}
       >
         <SocialIcon kind="linkedin" />
         <span>LinkedIn</span>
@@ -301,7 +315,7 @@ function SocialLinks({ className }: SocialLinksProps) {
         href={profile.github}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Abrir GitHub de Kaique Albuquerque em nova aba"
+        aria-label={`GitHub - ${profile.name}`}
       >
         <SocialIcon kind="github" />
         <span>GitHub</span>
@@ -310,7 +324,7 @@ function SocialLinks({ className }: SocialLinksProps) {
         href={profile.whatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Conversar com Kaique Albuquerque pelo WhatsApp em nova aba"
+        aria-label={`WhatsApp - ${profile.name}`}
       >
         <SocialIcon kind="whatsapp" />
         <span>WhatsApp</span>
