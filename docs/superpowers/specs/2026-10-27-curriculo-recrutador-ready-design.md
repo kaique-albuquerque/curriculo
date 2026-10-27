@@ -129,30 +129,33 @@ highlights:
    context: Pluma Genetics · uso interno
    description: Aplicação própria com interface React, API em Node.js e consulta mais rápida que as visões de indicadores anteriores.
    impact: Reuniu rentabilidade, custos, metas e participação de mercado em um único painel.
+   note: Sistema interno com dados financeiros; acesso sob confidencialidade, demonstração na entrevista.
    stack: [React, TypeScript, Node.js, APIs]
    links: []
 
-2. title: Aplicativo corporativo em React Native
-   context: Pluma Genetics · app interno
-   description: App em Expo que substituiu etapas manuais de rotinas internas, consumindo as APIs da empresa.
-   impact: Padronizou operações internas que antes dependiam de planilhas e mensagens.
+2. title: Pluma Genetics App — iOS e Android
+   context: Pluma Genetics · app publicado
+   description: App em React Native com Expo para avicultores simularem lotes por linhagem, projetarem produção e consultarem os manuais técnicos.
+   impact: Publicado na App Store e no Google Play, com simulações exportáveis em CSV.
    stack: [React Native, Expo, APIs]
-   links: []
+   links: [App Store https://apps.apple.com/br/app/pluma-genetics/id6736628753, Google Play https://play.google.com/store/apps/details?id=com.pluma.pg]
 
 3. title: Site institucional em React
    context: Pluma Genetics · produto web
-   description: Manutenção e evolução do site institucional com foco em performance, clareza de conteúdo e integrações.
+   description: Manutenção e evolução do site institucional em React com TypeScript, integrações e foco em clareza de conteúdo.
    impact: Centralizou a presença digital da empresa e simplificou a atualização de conteúdo.
    stack: [React, TypeScript, CSS, APIs]
-   links: []
+   links: [plumagenetics.com https://plumagenetics.com]
 
 4. title: Projetos públicos no GitHub
    context: Open source · estudo aplicado
-   description: Repositórios de estudo em React, TypeScript e IA aplicada: exemplo de RAG, playground de tensores e ferramenta de download de HLS.
+   description: Repositórios de estudo em React, TypeScript e IA aplicada: RAG com Neo4j, playground de tensores e ferramenta de download de HLS.
    impact: Código aberto para avaliação técnica direta.
    stack: [React, TypeScript, Python, Node.js]
    links: [{ label: "Ver GitHub", url: "https://github.com/kaique-albuquerque" }]
 ```
+
+Provas verificadas em 27/10/2026: App Store `id6736628753` (vendedor PLUMA GENETICS SA), Google Play `com.pluma.pg` (desenvolvedor PLUMA GENETICS SA) e `plumagenetics.com` servindo uma SPA Vite/React. O dashboard interno permanece sem link: URL de sistema corporativo não é verificável e expõe infraestrutura da empresa.
 
 **PT-8 Grupos de stack** (secoes, nesta ordem)
 
@@ -274,18 +277,20 @@ Full-stack developer with 4 years in IT. At Pluma Genetics I moved from administ
 1. Corporate dashboard in React and Node.js | Pluma Genetics · internal tool
    description: Custom application with a React interface, Node.js API and faster queries than the previous indicator views.
    impact: Consolidated profitability, cost, target and market-share metrics in a single panel.
+   note: Internal system with financial data; access under confidentiality, walkthrough available in interviews.
    stack: [React, TypeScript, Node.js, APIs]
 
-2. Corporate app in React Native | Pluma Genetics · internal app
-   description: Expo app that replaced manual steps in internal routines, consuming company APIs.
-   impact: Standardised operations previously handled through spreadsheets and chat.
+2. Pluma Genetics App — iOS and Android | Pluma Genetics · published app
+   description: React Native app with Expo for poultry producers to simulate batches by lineage, project output and check the technical manuals.
+   impact: Published on the App Store and Google Play, with simulations exportable as CSV.
+   stack: [React Native, Expo, APIs]
 
 3. Institutional website in React | Pluma Genetics · web product
-   description: Maintenance and evolution of the company website, focused on performance, content clarity and integrations.
+   description: Maintenance and evolution of the company website in React with TypeScript, integrations and a focus on content clarity.
    impact: Centralised the company's digital presence and simplified content updates.
 
 4. Public GitHub projects | Open source · applied study
-   description: Study repositories in React, TypeScript and applied AI: a RAG example, a tensor playground and an HLS downloader.
+   description: Study repositories in React, TypeScript and applied AI: RAG with Neo4j, a tensor playground and an HLS downloader.
    impact: Open code available for direct technical review.
    stack: [React, TypeScript, Python, Node.js]
    links: [{ label: "View GitHub", url: "https://github.com/kaique-albuquerque" }]

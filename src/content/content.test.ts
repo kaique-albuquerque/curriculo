@@ -64,3 +64,33 @@ test("locales tem a mesma estrutura", () => {
   expect(en.certificates.length).toBe(pt.certificates.length);
   expect(Object.keys(en.labels).sort()).toEqual(Object.keys(pt.labels).sort());
 });
+
+describe.each(Object.entries(contents))("%s projetos com prova publica", (locale, content) => {
+  test("app publicado linka App Store e Google Play", () => {
+    const app = content.projects.find((project) =>
+      project.links.some((link) => link.url.includes("apps.apple.com")),
+    );
+
+    expect(app).toBeDefined();
+    expect(app?.links.some((link) => link.url.includes("play.google.com"))).toBe(true);
+    expect(app?.context.toLowerCase()).toMatch(locale === "pt" ? /publicado/ : /published/);
+  });
+
+  test("site institucional linka o dominio da empresa", () => {
+    const site = content.projects.find((project) =>
+      project.links.some((link) => link.url.includes("plumagenetics.com")),
+    );
+
+    expect(site).toBeDefined();
+  });
+
+  test("dashboard interno nao expoe link e declara confidencialidade", () => {
+    const dashboard = content.projects.find((project) => /dashboard/i.test(project.title));
+
+    expect(dashboard).toBeDefined();
+    expect(dashboard?.links).toHaveLength(0);
+    expect(dashboard?.note?.toLowerCase()).toMatch(
+      locale === "pt" ? /confidencial/ : /confidential/,
+    );
+  });
+});

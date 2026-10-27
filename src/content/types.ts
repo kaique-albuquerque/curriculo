@@ -28,6 +28,7 @@ export type Project = {
   description: string;
   stack: string[];
   impact: string;
+  note?: string;
   links: Array<{ label: string; url: string }>;
 };
 

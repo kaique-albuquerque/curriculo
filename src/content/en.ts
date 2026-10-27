@@ -122,34 +122,44 @@ export const en: Content = {
         "Custom application with a React interface, Node.js API and faster queries than the previous indicator views.",
       impact:
         "Consolidated profitability, cost, target and market-share metrics in a single panel.",
+      note: "Internal system with financial data; access under confidentiality, walkthrough available in interviews.",
       stack: ["React", "TypeScript", "Node.js", "APIs"],
       links: [],
     },
     {
-      title: "Corporate app in React Native",
-      context: "Pluma Genetics · internal app",
+      title: "Pluma Genetics App — iOS and Android",
+      context: "Pluma Genetics · published app",
       description:
-        "Expo app that replaced manual steps in internal routines, consuming company APIs.",
+        "React Native app with Expo for poultry producers to simulate batches by lineage, project output and check the technical manuals.",
       impact:
-        "Standardised operations previously handled through spreadsheets and chat.",
+        "Published on the App Store and Google Play, with simulations exportable as CSV.",
       stack: ["React Native", "Expo", "APIs"],
-      links: [],
+      links: [
+        {
+          label: "App Store",
+          url: "https://apps.apple.com/br/app/pluma-genetics/id6736628753",
+        },
+        {
+          label: "Google Play",
+          url: "https://play.google.com/store/apps/details?id=com.pluma.pg",
+        },
+      ],
     },
     {
       title: "Institutional website in React",
       context: "Pluma Genetics · web product",
       description:
-        "Maintenance and evolution of the company website, focused on performance, content clarity and integrations.",
+        "Maintenance and evolution of the company website in React with TypeScript, integrations and a focus on content clarity.",
       impact:
         "Centralised the company's digital presence and simplified content updates.",
       stack: ["React", "TypeScript", "CSS", "APIs"],
-      links: [],
+      links: [{ label: "plumagenetics.com", url: "https://plumagenetics.com" }],
     },
     {
       title: "Public GitHub projects",
       context: "Open source · applied study",
       description:
-        "Study repositories in React, TypeScript and applied AI: a RAG example, a tensor playground and an HLS downloader.",
+        "Study repositories in React, TypeScript and applied AI: RAG with Neo4j, a tensor playground and an HLS downloader.",
       impact: "Open code available for direct technical review.",
       stack: ["React", "TypeScript", "Python", "Node.js"],
       links: [

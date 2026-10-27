@@ -477,6 +477,12 @@ ul {
   font-weight: 700;
 }
 
+.project-note {
+  color: var(--page-muted) !important;
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
 .project-links a {
   color: var(--page-accent);
   font-weight: 800;
@@ -750,8 +756,16 @@ ul {
   .project-card,
   .skill-card {
     border-radius: 6px;
-    padding: 0.5rem;
+    padding: 0.4rem 0.5rem;
     gap: 0.25rem;
+  }
+
+  .project-card p,
+  .timeline-card li,
+  .stack-item p,
+  .project-note {
+    font-size: 0.92rem;
+    line-height: 1.3;
   }
 
   .print-contact {
@@ -797,6 +811,28 @@ ul {
   .skill-grid,
   .language-list {
     margin-top: 0.3rem;
+  }
+
+  #idiomas {
+    padding: 0.4rem 0.5rem;
+  }
+
+  #idiomas .section-label {
+    display: none;
+  }
+
+  #idiomas h2 {
+    font-size: 1rem;
+    margin-top: 0;
+  }
+
+  #idiomas .language-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 1.25rem;
+    padding-left: 0;
+    list-style: none;
+    margin-top: 0.15rem;
   }
 
   .skill-card ul {

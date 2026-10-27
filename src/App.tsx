@@ -201,6 +201,7 @@ function App() {
                 </div>
                 <p>{project.description}</p>
                 <p className="project-impact">{project.impact}</p>
+                {project.note ? <p className="project-note">{project.note}</p> : null}
                 <ul className="project-stack">
                   {project.stack.map((item) => (
                     <li key={item}>{item}</li>

@@ -123,33 +123,43 @@ export const pt: Content = {
       impact:
         "Reuniu rentabilidade, custos, metas e participação de mercado em um único painel.",
       stack: ["React", "TypeScript", "Node.js", "APIs"],
+      note: "Sistema interno com dados financeiros; acesso sob confidencialidade, demonstração na entrevista.",
       links: [],
     },
     {
-      title: "Aplicativo corporativo em React Native",
-      context: "Pluma Genetics · app interno",
+      title: "Pluma Genetics App — iOS e Android",
+      context: "Pluma Genetics · app publicado",
       description:
-        "App em Expo que substituiu etapas manuais de rotinas internas, consumindo as APIs da empresa.",
+        "App em React Native com Expo para avicultores simularem lotes por linhagem, projetarem produção e consultarem os manuais técnicos.",
       impact:
-        "Padronizou operações internas que antes dependiam de planilhas e mensagens.",
+        "Publicado na App Store e no Google Play, com simulações exportáveis em CSV.",
       stack: ["React Native", "Expo", "APIs"],
-      links: [],
+      links: [
+        {
+          label: "App Store",
+          url: "https://apps.apple.com/br/app/pluma-genetics/id6736628753",
+        },
+        {
+          label: "Google Play",
+          url: "https://play.google.com/store/apps/details?id=com.pluma.pg",
+        },
+      ],
     },
     {
       title: "Site institucional em React",
       context: "Pluma Genetics · produto web",
       description:
-        "Manutenção e evolução do site institucional com foco em performance, clareza de conteúdo e integrações.",
+        "Manutenção e evolução do site institucional em React com TypeScript, integrações e foco em clareza de conteúdo.",
       impact:
         "Centralizou a presença digital da empresa e simplificou a atualização de conteúdo.",
       stack: ["React", "TypeScript", "CSS", "APIs"],
-      links: [],
+      links: [{ label: "plumagenetics.com", url: "https://plumagenetics.com" }],
     },
     {
       title: "Projetos públicos no GitHub",
       context: "Open source · estudo aplicado",
       description:
-        "Repositórios de estudo em React, TypeScript e IA aplicada: exemplo de RAG, playground de tensores e ferramenta de download de HLS.",
+        "Repositórios de estudo em React, TypeScript e IA aplicada: RAG com Neo4j, playground de tensores e ferramenta de download de HLS.",
       impact: "Código aberto para avaliação técnica direta.",
       stack: ["React", "TypeScript", "Python", "Node.js"],
       links: [
