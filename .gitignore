@@ -30,3 +30,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# superpowers runtime state (specs e planos ficam em docs/superpowers/)
+.superpowers/
