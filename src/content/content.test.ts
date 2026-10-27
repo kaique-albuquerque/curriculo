@@ -28,6 +28,12 @@ describe.each(Object.entries(contents))("%s", (locale, content) => {
     expect(content.profile.resumePdf).toBe(`/kaique-albuquerque-curriculo-${locale}.pdf`);
   });
 
+  test("linkedin aponta para o perfil atual", () => {
+    expect(content.profile.linkedin).toBe("https://www.linkedin.com/in/kaique-albq/");
+    expect(content.profile.printContact).toContain("linkedin.com/in/kaique-albq");
+    expect(JSON.stringify(content)).not.toContain("kaique-dias");
+  });
+
   test("ids de navegacao apontam para secoes existentes", () => {
     const hrefs = content.navItems.map((item) => item.href);
     expect(hrefs).toEqual(["#experiencia", "#projetos", "#stack", "#formacao", "#contato"]);

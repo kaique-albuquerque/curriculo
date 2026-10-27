@@ -13,7 +13,7 @@ export const en: Content = {
     location: "Birigui, São Paulo, Brazil",
     email: "kaique.g.dias14@gmail.com",
     phone: "+55 (18) 98810-3982",
-    linkedin: "https://www.linkedin.com/in/kaique-dias/",
+    linkedin: "https://www.linkedin.com/in/kaique-albq/",
     github: "https://github.com/kaique-albuquerque",
     whatsapp:
       "https://wa.me/5518988103982?text=Hi%2C+Kaique%2C+I+saw+your+online+resume+and+would+like+to+talk.",
@@ -22,7 +22,7 @@ export const en: Content = {
       "Full-stack developer with 4 years in IT. At Pluma Genetics I moved from administrative assistant to technical supervisor, shipping the company website, an internal mobile app and executive dashboards.",
     focus: ["React + TypeScript", "REST APIs", "Power BI", "React Native"],
     printContact:
-      "linkedin.com/in/kaique-dias · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com",
+      "linkedin.com/in/kaique-albq · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com",
   },
   labels: {
     nav: {

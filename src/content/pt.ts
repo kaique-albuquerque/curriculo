@@ -13,7 +13,7 @@ export const pt: Content = {
     location: "Birigui - SP",
     email: "kaique.g.dias14@gmail.com",
     phone: "+55 (18) 98810-3982",
-    linkedin: "https://www.linkedin.com/in/kaique-dias/",
+    linkedin: "https://www.linkedin.com/in/kaique-albq/",
     github: "https://github.com/kaique-albuquerque",
     whatsapp:
       "https://wa.me/5518988103982?text=Ola%2C+Kaique%2C+vi+o+seu+curriculo+online+e+gostaria+de+conversar.",
@@ -22,7 +22,7 @@ export const pt: Content = {
       "Desenvolvedor full-stack com 4 anos em TI. Na Pluma Genetics evoluí de assistente administrativo a supervisor técnico, entregando site institucional, aplicativo interno e dashboards executivos.",
     focus: ["React + TypeScript", "APIs REST", "Power BI", "React Native"],
     printContact:
-      "linkedin.com/in/kaique-dias · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com",
+      "linkedin.com/in/kaique-albq · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com",
   },
   labels: {
     nav: {

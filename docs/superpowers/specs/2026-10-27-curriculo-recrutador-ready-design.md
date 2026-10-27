@@ -38,7 +38,7 @@ Auditoria do curriculo atual (codigo, PDF gerado, site publicado em `https://cka
 | Analista de Dados Gerenciais | Pluma Genetics |
 | Supervisor Tecnico | Pluma Genetics |
 | GitHub | `https://github.com/kaique-albuquerque` |
-| LinkedIn | `https://www.linkedin.com/in/kaique-dias/` |
+| LinkedIn | `https://www.linkedin.com/in/kaique-albq/` |
 | Telefone (derivado do link do WhatsApp) | +55 (18) 98810-3982 |
 | Localizacao | Birigui - SP |
 | Nivel de ingles | A2, em evolucao para B1 |
@@ -352,7 +352,7 @@ available: Open to opportunities in product, data and software engineering.
 - Uma coluna (`grid-template-columns: 1fr`), fonte base 9pt.
 - Remover `page-break-before: always` de `.work-grid`.
 - `break-inside: avoid` em `.timeline-item`, `.project-card`, `.skill-card`, `.certificate-card`, `.stack-item`, `.highlight-strip`.
-- Linha de contato em texto puro no topo: `linkedin.com/in/kaique-dias · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com`. Fonte: campo `profile.printContact` de cada locale, renderizado em `<p className="print-contact">` visivel apenas em `@media print`.
+- Linha de contato em texto puro no topo: `linkedin.com/in/kaique-albq · github.com/kaique-albuquerque · +55 18 98810-3982 · kaique.g.dias14@gmail.com`. Fonte: campo `profile.printContact` de cada locale, renderizado em `<p className="print-contact">` visivel apenas em `@media print`.
 - Ocultar: CTAs, seletor de tema, nav, badges.
 - Meta: PT = exatamente 2 paginas A4; EN <= 2 paginas A4.
 
@@ -371,7 +371,7 @@ available: Open to opportunities in product, data and software engineering.
 2. `npm run build` verde e `scripts/check-pdf.mjs` aprovando:
    - PT com exatamente 2 paginas; EN com no maximo 2 paginas.
    - Nenhuma pagina com menos de 300 caracteres extraidos.
-   - Texto completo contem `github.com/kaique-albuquerque` e `linkedin.com/in/kaique-dias`.
+   - Texto completo contem `github.com/kaique-albuquerque` e `linkedin.com/in/kaique-albq`.
    - Texto completo nao contem `CURRICULO ONLINE`, `PRIORITARIO` nem `Objetivo`.
 3. `?lang=en` renderiza o curriculo em ingles, `html[lang] === "en"` e o titulo do documento em ingles.
 4. Hero com altura <= 520 px e topo da secao de experiencia <= 800 px em viewport 1280x900.

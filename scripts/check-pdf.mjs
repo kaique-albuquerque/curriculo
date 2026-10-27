@@ -80,7 +80,7 @@ for (const locale of ["pt", "en"]) {
     failures.push(`${locale}: URL do GitHub ausente no texto do PDF`);
   }
 
-  if (!flat.includes("linkedin.com/in/kaique-dias")) {
+  if (!flat.includes("linkedin.com/in/kaique-albq")) {
     failures.push(`${locale}: URL do LinkedIn ausente no texto do PDF`);
   }
 
