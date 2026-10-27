@@ -129,9 +129,9 @@ highlights:
    context: Pluma Genetics · uso interno
    description: Aplicação própria com interface React, API em Node.js e consulta mais rápida que as visões de indicadores anteriores.
    impact: Reuniu rentabilidade, custos, metas e participação de mercado em um único painel.
-   note: Sistema interno com dados financeiros; acesso sob confidencialidade, demonstração na entrevista.
+   note: Dados financeiros sob confidencialidade; acesso restrito por credenciais da empresa, com demonstração na entrevista.
    stack: [React, TypeScript, Node.js, APIs]
-   links: []
+   links: [dashboard.plumagenetics.com https://dashboard.plumagenetics.com/]
 
 2. title: Pluma Genetics App — iOS e Android
    context: Pluma Genetics · app publicado
@@ -155,7 +155,7 @@ highlights:
    links: [{ label: "Ver GitHub", url: "https://github.com/kaique-albuquerque" }]
 ```
 
-Provas verificadas em 27/10/2026: App Store `id6736628753` (vendedor PLUMA GENETICS SA), Google Play `com.pluma.pg` (desenvolvedor PLUMA GENETICS SA) e `plumagenetics.com` servindo uma SPA Vite/React. O dashboard interno permanece sem link: URL de sistema corporativo não é verificável e expõe infraestrutura da empresa.
+Provas verificadas em 27/10/2026: App Store `id6736628753` (vendedor PLUMA GENETICS SA), Google Play `com.pluma.pg` (desenvolvedor PLUMA GENETICS SA), `plumagenetics.com` servindo uma SPA Vite/React e `dashboard.plumagenetics.com` servindo o "Dashboard Gerencial" atrás de tela de login. O link do dashboard aponta para o sistema real, mas exige credenciais da empresa; por isso a nota de confidencialidade acompanha o card.
 
 **PT-8 Grupos de stack** (secoes, nesta ordem)
 
@@ -277,8 +277,9 @@ Full-stack developer with 4 years in IT. At Pluma Genetics I moved from administ
 1. Corporate dashboard in React and Node.js | Pluma Genetics · internal tool
    description: Custom application with a React interface, Node.js API and faster queries than the previous indicator views.
    impact: Consolidated profitability, cost, target and market-share metrics in a single panel.
-   note: Internal system with financial data; access under confidentiality, walkthrough available in interviews.
+   note: Financial data under confidentiality; access restricted to company credentials, with a walkthrough in interviews.
    stack: [React, TypeScript, Node.js, APIs]
+   links: [dashboard.plumagenetics.com https://dashboard.plumagenetics.com/]
 
 2. Pluma Genetics App — iOS and Android | Pluma Genetics · published app
    description: React Native app with Expo for poultry producers to simulate batches by lineage, project output and check the technical manuals.

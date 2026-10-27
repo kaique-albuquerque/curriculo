@@ -84,11 +84,12 @@ describe.each(Object.entries(contents))("%s projetos com prova publica", (locale
     expect(site).toBeDefined();
   });
 
-  test("dashboard interno nao expoe link e declara confidencialidade", () => {
+  test("dashboard interno linka o sistema e declara confidencialidade", () => {
     const dashboard = content.projects.find((project) => /dashboard/i.test(project.title));
 
     expect(dashboard).toBeDefined();
-    expect(dashboard?.links).toHaveLength(0);
+    expect(dashboard?.links).toHaveLength(1);
+    expect(dashboard?.links[0].url).toBe("https://dashboard.plumagenetics.com/");
     expect(dashboard?.note?.toLowerCase()).toMatch(
       locale === "pt" ? /confidencial/ : /confidential/,
     );

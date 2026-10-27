@@ -80,6 +80,20 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: /Selected projects/ })).not.toBeNull();
   });
 
+  test("todo projeto linkado abre em nova aba", () => {
+    const { container } = render(<App />);
+    const links = [...container.querySelectorAll(".project-links a")];
+
+    expect(links.length).toBe(5);
+    for (const link of links) {
+      expect(link.getAttribute("target")).toBe("_blank");
+      expect(link.getAttribute("rel")).toContain("noopener");
+    }
+    expect(links.map((link) => link.getAttribute("href"))).toContain(
+      "https://dashboard.plumagenetics.com/",
+    );
+  });
+
   test("mostra espanhol B1 com link do comprovante", () => {
     const { container } = render(<App />);
     const items = [...container.querySelectorAll(".language-list li")].map(

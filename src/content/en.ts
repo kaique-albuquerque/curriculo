@@ -123,9 +123,14 @@ export const en: Content = {
         "Custom application with a React interface, Node.js API and faster queries than the previous indicator views.",
       impact:
         "Consolidated profitability, cost, target and market-share metrics in a single panel.",
-      note: "Internal system with financial data; access under confidentiality, walkthrough available in interviews.",
+      note: "Financial data under confidentiality; access restricted to company credentials, with a walkthrough in interviews.",
       stack: ["React", "TypeScript", "Node.js", "APIs"],
-      links: [],
+      links: [
+        {
+          label: "dashboard.plumagenetics.com",
+          url: "https://dashboard.plumagenetics.com/",
+        },
+      ],
     },
     {
       title: "Pluma Genetics App — iOS and Android",

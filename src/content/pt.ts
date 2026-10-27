@@ -124,8 +124,13 @@ export const pt: Content = {
       impact:
         "Reuniu rentabilidade, custos, metas e participação de mercado em um único painel.",
       stack: ["React", "TypeScript", "Node.js", "APIs"],
-      note: "Sistema interno com dados financeiros; acesso sob confidencialidade, demonstração na entrevista.",
-      links: [],
+      note: "Dados financeiros sob confidencialidade; acesso restrito por credenciais da empresa, com demonstração na entrevista.",
+      links: [
+        {
+          label: "dashboard.plumagenetics.com",
+          url: "https://dashboard.plumagenetics.com/",
+        },
+      ],
     },
     {
       title: "Pluma Genetics App — iOS e Android",
