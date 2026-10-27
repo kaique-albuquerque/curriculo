@@ -6,6 +6,26 @@ const pdfFor = (locale) => `public/kaique-albuquerque-curriculo-${locale}.pdf`;
 
 const MIN_CHARS_PER_PAGE = 300;
 
+const SECTION_LABELS = new Set([
+  "EXPERIÊNCIA",
+  "EXPERIENCE",
+  "PROJETOS",
+  "PROJECTS",
+  "STACK",
+  "FORMAÇÃO",
+  "EDUCATION",
+  "CERTIFICADOS",
+  "CERTIFICATES",
+  "IDIOMAS",
+  "LANGUAGES",
+  "Competências por área",
+  "Skills by area",
+  "Projetos aplicados",
+  "Selected projects",
+  "Trajetória em produto e dados",
+  "Product and data track record",
+]);
+
 const readPdf = async (locale) => {
   const path = resolve(pdfFor(locale));
   const data = new Uint8Array(await readFile(path));
@@ -67,6 +87,24 @@ for (const locale of ["pt", "en"]) {
   if (!digits.includes("5518988103982")) {
     failures.push(`${locale}: telefone ausente no texto do PDF`);
   }
+
+  if (!flat.includes("kaique.g.dias14@gmail.com")) {
+    failures.push(`${locale}: e-mail truncado ou ausente no texto do PDF`);
+  }
+
+  const accentSample = locale === "pt" ? "Formação" : "São Paulo";
+  if (!fullText.includes(accentSample)) {
+    failures.push(`${locale}: acentuacao perdida no texto do PDF (esperado "${accentSample}")`);
+  }
+
+  pages.slice(0, -1).forEach((text, index) => {
+    const lastLine = text.trim().split("\n").pop() ?? "";
+    if (SECTION_LABELS.has(lastLine.trim())) {
+      failures.push(
+        `${locale}: pagina ${index + 1} termina com o titulo de secao "${lastLine.trim()}"`,
+      );
+    }
+  });
 
   for (const forbidden of ["CURRICULOONLINE", "PRIORITARIO", "Objetivo"]) {
     if (flat.includes(forbidden)) {

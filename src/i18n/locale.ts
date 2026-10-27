@@ -5,6 +5,22 @@ import type { Locale } from "../content/types";
 export const SUPPORTED_LOCALES: Locale[] = ["pt", "en"];
 export const LOCALE_STORAGE_KEY = "curriculo-locale";
 
+export const getStored = (key: string): string | null => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+export const setStored = (key: string, value: string): void => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Storage pode estar bloqueado (cookies/privacidade); o curriculo segue sem persistir.
+  }
+};
+
 const normalize = (value: string): Locale | null => {
   const base = value.trim().toLowerCase().split(/[-_;]/)[0];
   return base === "pt" || base === "en" ? base : null;
@@ -32,7 +48,7 @@ export const resolveLocale = (
 const initialLocale = (): Locale =>
   resolveLocale(
     window.location.search,
-    window.localStorage.getItem(LOCALE_STORAGE_KEY),
+    getStored(LOCALE_STORAGE_KEY),
     typeof navigator === "undefined" ? "" : navigator.language,
   );
 
@@ -46,7 +62,7 @@ export const useLocale = (): [Locale, (locale: Locale) => void] => {
     document.documentElement.lang = locale === "pt" ? "pt-BR" : "en";
     document.title = content.meta.title;
     description?.setAttribute("content", content.meta.description);
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    setStored(LOCALE_STORAGE_KEY, locale);
   }, [locale]);
 
   const setLocale = useCallback((next: Locale) => {

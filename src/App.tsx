@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
 import { getContent } from "./content";
 import type { Profile } from "./content/types";
-import { SUPPORTED_LOCALES, useLocale } from "./i18n/locale";
+import {
+  SUPPORTED_LOCALES,
+  getStored,
+  setStored,
+  useLocale,
+} from "./i18n/locale";
 
 type ThemeMode = "auto" | "light" | "dark";
 
-const themeOptions: Array<{ value: ThemeMode; label: string }> = [
-  { value: "auto", label: "Auto" },
-  { value: "light", label: "Claro" },
-  { value: "dark", label: "Escuro" },
-];
+const themeOptionsByLocale: Record<string, Array<{ value: ThemeMode; label: string }>> = {
+  pt: [
+    { value: "auto", label: "Auto" },
+    { value: "light", label: "Claro" },
+    { value: "dark", label: "Escuro" },
+  ],
+  en: [
+    { value: "auto", label: "Auto" },
+    { value: "light", label: "Light" },
+    { value: "dark", label: "Dark" },
+  ],
+};
 
 const themeGroupLabel: Record<string, string> = {
   pt: "Selecionar tema",
@@ -24,9 +36,10 @@ const localeGroupLabel: Record<string, string> = {
 function App() {
   const [locale, setLocale] = useLocale();
   const t = getContent(locale);
+  const themeOptions = themeOptionsByLocale[locale] ?? themeOptionsByLocale.pt;
 
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    const saved = window.localStorage.getItem("theme-mode");
+    const saved = getStored("theme-mode");
 
     if (saved === "light" || saved === "dark" || saved === "auto") {
       return saved;
@@ -46,7 +59,7 @@ function App() {
     };
 
     applyTheme();
-    window.localStorage.setItem("theme-mode", themeMode);
+    setStored("theme-mode", themeMode);
 
     if (themeMode !== "auto") {
       return;

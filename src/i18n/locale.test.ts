@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { resolveLocale } from "./locale";
+import { getStored, resolveLocale, setStored } from "./locale";
 
 describe("resolveLocale", () => {
   test("prioriza ?lang valido", () => {
@@ -27,3 +27,51 @@ describe("resolveLocale", () => {
     expect(resolveLocale("", null, "")).toBe("pt");
   });
 });
+
+describe("storage tolerante a bloqueio", () => {
+  const storageKey = "curriculo-locale";
+
+  test("getStored devolve o valor salvo", () => {
+    window.localStorage.setItem(storageKey, "en");
+    expect(getStored(storageKey)).toBe("en");
+  });
+
+  test("getStored devolve null quando o acesso lanca", () => {
+    const original = window.localStorage;
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get() {
+        throw new Error("SecurityError");
+      },
+    });
+
+    try {
+      expect(getStored(storageKey)).toBeNull();
+    } finally {
+      Object.defineProperty(window, "localStorage", {
+        configurable: true,
+        value: original,
+      });
+    }
+  });
+
+  test("setStored nao propaga erro quando o acesso lanca", () => {
+    const original = window.localStorage;
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get() {
+        throw new Error("SecurityError");
+      },
+    });
+
+    try {
+      expect(() => setStored(storageKey, "en")).not.toThrow();
+    } finally {
+      Object.defineProperty(window, "localStorage", {
+        configurable: true,
+        value: original,
+      });
+    }
+  });
+});
+

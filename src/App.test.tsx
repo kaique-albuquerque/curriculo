@@ -7,6 +7,14 @@ beforeEach(() => {
   window.localStorage.clear();
   window.localStorage.setItem("curriculo-locale", "pt");
   window.history.replaceState({}, "", "/");
+
+  let description = document.querySelector('meta[name="description"]');
+  if (!description) {
+    description = document.createElement("meta");
+    description.setAttribute("name", "description");
+    document.head.appendChild(description);
+  }
+  description.setAttribute("content", "Currículo online de Kaique Albuquerque.");
 });
 
 describe("App", () => {
@@ -39,5 +47,36 @@ describe("App", () => {
     expect(document.documentElement.lang).toBe("en");
     expect(screen.getByRole("heading", { name: /Selected projects/ })).not.toBeNull();
     expect(screen.queryByRole("heading", { name: /Projetos aplicados/ })).toBeNull();
+    expect(document.title).toBe("Kaique Albuquerque — Resume");
+    expect(
+      document.querySelector('meta[name="description"]')?.getAttribute("content"),
+    ).toContain("full-stack");
+  });
+
+  test("traduz os rotulos do seletor de tema", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.click(screen.getByRole("button", { name: "EN" }));
+    expect(screen.getByRole("button", { name: "Light" })).not.toBeNull();
+    expect(screen.getByRole("button", { name: "Dark" })).not.toBeNull();
+    expect(screen.queryByRole("button", { name: "Claro" })).toBeNull();
+  });
+
+  test("nao renderiza nos vazios para campos opcionais", () => {
+    const { container } = render(<App />);
+    expect(container.querySelectorAll(".stack-subtitle").length).toBe(5);
+    for (const node of container.querySelectorAll(".stack-item strong")) {
+      expect(node.textContent?.trim()).not.toBe("");
+    }
+    for (const node of container.querySelectorAll(".stack-subtitle")) {
+      expect(node.textContent?.trim()).not.toBe("");
+    }
+  });
+
+  test("respeita ?lang=en na primeira renderizacao", () => {
+    window.history.replaceState({}, "", "/?lang=en");
+    render(<App />);
+    expect(document.documentElement.lang).toBe("en");
+    expect(screen.getByRole("heading", { name: /Selected projects/ })).not.toBeNull();
   });
 });
