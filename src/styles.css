@@ -509,9 +509,8 @@ ul {
   border-top: 1px solid var(--page-border-soft);
 }
 
-.stack-item:first-of-type {
-  border-top: 0;
-  padding-top: 0;
+.stack-list {
+  margin-top: 0.75rem;
 }
 
 .stack-subtitle {
@@ -798,6 +797,10 @@ ul {
   .certificate-list {
     gap: 0.3rem;
     margin-top: 0.3rem;
+  }
+
+  .stack-list {
+    margin-top: 0.5rem;
   }
 
   .certificate-list {
