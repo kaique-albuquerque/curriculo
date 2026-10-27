@@ -187,19 +187,48 @@ Pontos importantes:
 - A linha `.print-contact` aparece apenas no PDF, com URLs e telefone em texto puro para ATS e impressão.
 - Botões, seletor de tema/idioma, navegação e footer ficam ocultos no PDF.
 
-## Publicação
+## Publicação (Firebase Hosting)
 
-O projeto pode ser publicado em serviços como:
+O site é publicado no **Firebase Hosting**, projeto `curriculo-kaique`:
 
-- Netlify
-- Vercel
-- GitHub Pages
+- Produção: <https://curriculo-kaique.web.app>
+- Alternativo: <https://curriculo-kaique.firebaseapp.com>
 
-Antes de publicar, rode:
+Configuração no repositório:
+
+- `firebase.json`: publica `dist/`, com SPA rewrite, cache longo para `/assets/**`, `Content-Disposition: inline` nos PDFs e headers de segurança.
+- `.firebaserc`: fixa o projeto `curriculo-kaique`.
+
+Primeira vez na máquina:
 
 ```bash
-npm run build
+npm install -g firebase-tools
+firebase login
 ```
+
+Publicar uma nova versão (gera e valida os PDFs antes de subir):
+
+```bash
+npm run deploy
+```
+
+Publicar um preview temporário (não afeta produção):
+
+```bash
+npm run deploy:preview
+```
+
+### Checklist ao trocar de domínio
+
+Ao mudar a URL pública, atualize estes pontos e rode `npm run build`:
+
+1. `index.html`: `canonical`, `og:url`, `og:image` e `twitter:image`.
+2. `index.html`: campo `url` do JSON-LD `Person`.
+3. Configuração da conta: site do perfil do GitHub, campo "Website" do repositório e LinkedIn.
+
+### Alternativas
+
+O build em `dist/` é estático e também funciona em Netlify, Vercel ou GitHub Pages sem alteração de código.
 
 ## Observações
 

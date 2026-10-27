@@ -33,3 +33,8 @@ Thumbs.db
 
 # superpowers runtime state (specs e planos ficam em docs/superpowers/)
 .superpowers/
+
+# firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
