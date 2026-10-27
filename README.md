@@ -1,8 +1,8 @@
-# Kaique Albuquerque | Curriculo Online
+# Kaique Albuquerque | Currículo Online
 
-Curriculo online desenvolvido com React, TypeScript e Vite para apresentar experiencia profissional, projetos, stack tecnica, formacao, certificados e canais de contato em uma interface moderna, responsiva e com tema claro/escuro.
+Currículo online desenvolvido com React, TypeScript e Vite para apresentar experiência profissional, projetos, stack técnica, formação, certificados e canais de contato em uma interface moderna, responsiva e com tema claro/escuro.
 
-O projeto tambem gera automaticamente um PDF do curriculo com base no proprio site.
+O projeto também gera automaticamente dois PDFs do currículo — um em português e um em inglês — com base no próprio site.
 
 ## Tecnologias
 
@@ -10,43 +10,71 @@ O projeto tambem gera automaticamente um PDF do curriculo com base no proprio si
 - TypeScript
 - Vite
 - CSS puro
-- Playwright para geracao do PDF
+- Playwright para geração dos PDFs e da imagem de compartilhamento
+- Vitest e Testing Library para testes
 
 ## Funcionalidades
 
 - Layout responsivo para desktop, tablet e mobile.
-- Tema claro, escuro e automatico.
-- Hero com foco em Front-end / Full-stack.
-- Secoes de experiencia, projetos, stack, formacao e certificados.
-- Links para LinkedIn, GitHub, WhatsApp e email.
-- PDF gerado automaticamente a partir da versao web.
-- Estilos especificos de impressao com `@media print`.
+- Tema claro, escuro e automático.
+- Conteúdo em português e inglês, com seletor de idioma (`?lang=en`).
+- Experiências com empresa, período e resultados verificáveis.
+- Seções de experiência, projetos, stack, formação, certificados e idiomas.
+- Links para LinkedIn, GitHub, WhatsApp, email e telefone.
+- PDF de 2 páginas por idioma, gerado a partir da versão web.
+- Estilos específicos de impressão com `@media print`, em coluna única para leitura por ATS.
+- Metadados Open Graph, favicon e JSON-LD `Person`.
 
 ## Estrutura
 
 ```text
 src/
-  App.tsx        Interface principal e secoes do curriculo
-  data.ts       Conteudo do curriculo, projetos, links e certificados
-  main.tsx      Bootstrap React
-  styles.css    Estilos globais, temas e layout de impressao
+  App.tsx            Interface principal e seções do currículo
+  content/
+    types.ts         Contrato tipado de todo o conteúdo
+    pt.ts            Conteúdo em português
+    en.ts            Conteúdo em inglês
+    index.ts         getContent(locale)
+  i18n/
+    locale.ts        Resolução de idioma (?lang, localStorage, navegador)
+  main.tsx           Bootstrap React
+  styles.css         Estilos globais, temas e layout de impressão
 
 scripts/
-  generate-pdf.mjs  Gera o PDF a partir do site renderizado pelo Vite
+  generate-pdf.mjs   Gera os PDFs pt e en a partir do site renderizado pelo Vite
+  check-pdf.mjs      Valida páginas, contatos e textos proibidos nos PDFs
+  generate-og.mjs    Gera public/og-image.png (1200x630)
 
 public/
   profile.png
-  kaique-albuquerque-curriculo.pdf
+  kaique-albuquerque-curriculo-pt.pdf
+  kaique-albuquerque-curriculo-en.pdf
+  og-image.png
+  favicon.svg
 
 docs/superpowers/
-  specs/        Especificacoes criadas no fluxo Superpowers
-  plans/        Planos de implementacao criados no fluxo Superpowers
+  specs/        Especificações criadas no fluxo Superpowers
+  plans/        Planos de implementação criados no fluxo Superpowers
 
 .github/skills/
   <skill>/       Skills de IA do Superpowers (SKILL.md + arquivos de apoio)
 
-AGENTS.md       Instrucoes que carregam o Superpowers em agentes de IA
+AGENTS.md       Instruções que carregam o Superpowers em agentes de IA
 ```
+
+## Conteúdo e idioma
+
+Todo o texto do currículo vem de `src/content/pt.ts` e `src/content/en.ts`, ambos validados pelo tipo `Content` em `src/content/types.ts`. Os dois arquivos precisam manter a mesma estrutura (as especificações, empresas e datas espelham um do outro).
+
+O idioma ativo é resolvido nesta ordem: parâmetro `?lang` da URL, `localStorage["curriculo-locale"]`, idioma do navegador e, por fim, português.
+
+## Testes
+
+```bash
+npm test
+```
+
+Os testes cobrem as invariantes do conteúdo (empresa em toda experiência, link canônico do GitHub, ausência de textos sem acento) e a resolução de idioma.
 
 ## Superpowers (skills de IA)
 
@@ -64,7 +92,7 @@ Instale as dependencias:
 npm install
 ```
 
-Se for a primeira vez usando a geracao de PDF, instale o Chromium do Playwright:
+Se for a primeira vez usando a geração de PDF, instale o Chromium do Playwright:
 
 ```bash
 npx playwright install chromium
@@ -76,23 +104,36 @@ Rode o servidor de desenvolvimento:
 npm run dev
 ```
 
-## Gerar PDF
+## Gerar PDFs
 
-Para gerar apenas o PDF:
+Para gerar os dois PDFs (português e inglês):
 
 ```bash
 npm run generate:pdf
 ```
 
-O arquivo gerado fica em:
+Os arquivos gerados ficam em:
 
 ```text
-public/kaique-albuquerque-curriculo.pdf
+public/kaique-albuquerque-curriculo-pt.pdf
+public/kaique-albuquerque-curriculo-en.pdf
 ```
 
-## Build de producao
+Para validar os PDFs (quantidade de páginas, URLs, telefone e textos proibidos):
 
-O build sempre gera o PDF antes de compilar o site:
+```bash
+npm run check:pdf
+```
+
+Para regenerar a imagem de compartilhamento:
+
+```bash
+npm run generate:og
+```
+
+## Build de produção
+
+O build gera e valida os PDFs antes de compilar o site:
 
 ```bash
 npm run build
@@ -102,6 +143,7 @@ Esse comando executa:
 
 ```bash
 npm run generate:pdf
+npm run check:pdf
 tsc -b
 vite build
 ```
@@ -109,27 +151,29 @@ vite build
 Resultado final:
 
 - Site compilado em `dist/`.
-- PDF atualizado em `public/kaique-albuquerque-curriculo.pdf`.
+- PDFs atualizados em `public/`.
 
-## Como atualizar o curriculo
+## Como atualizar o currículo
 
-Edite o conteudo principal em:
+Edite o conteúdo em:
 
 ```text
-src/data.ts
+src/content/pt.ts
+src/content/en.ts
 ```
 
 Depois rode:
 
 ```bash
+npm test
 npm run build
 ```
 
-Isso atualiza o site e regenera o PDF com o conteudo novo.
+Isso valida o conteúdo, atualiza o site e regenera os PDFs.
 
-## Personalizacao visual
+## Personalização visual
 
-Para ajustar layout, cores, responsividade ou impressao/PDF, edite:
+Para ajustar layout, cores, responsividade ou impressão/PDF, edite:
 
 ```text
 src/styles.css
@@ -137,14 +181,15 @@ src/styles.css
 
 Pontos importantes:
 
-- Variaveis de tema ficam em `:root` e `:root[data-theme="light"]`.
-- Estilos do PDF ficam no bloco `@media print`.
-- O botao de PDF fica oculto no PDF para evitar um link redundante dentro do arquivo.
-- O footer tambem fica oculto no PDF para evitar uma pagina extra quase vazia.
+- Variáveis de tema ficam em `:root` e `:root[data-theme="light"]`.
+- Estilos do PDF ficam no bloco `@media print`, com coluna única e `break-inside: avoid` nos cartões.
+- O bloco de impressão usa `html { font-size: 10px }` para caber em 2 páginas A4; aumentar esse valor quebra o limite validado por `check:pdf`.
+- A linha `.print-contact` aparece apenas no PDF, com URLs e telefone em texto puro para ATS e impressão.
+- Botões, seletor de tema/idioma, navegação e footer ficam ocultos no PDF.
 
-## Publicacao
+## Publicação
 
-O projeto pode ser publicado em servicos como:
+O projeto pode ser publicado em serviços como:
 
 - Netlify
 - Vercel
@@ -156,11 +201,11 @@ Antes de publicar, rode:
 npm run build
 ```
 
-## Observacoes
+## Observações
 
-- O PDF e um artefato versionado em `public/`, porque o site e estatico e precisa servir o arquivo pronto.
-- Se o PDF estiver aberto em outro programa, a geracao pode falhar no Windows com erro de arquivo bloqueado. Feche o visualizador e rode `npm run generate:pdf` novamente.
-- O projeto usa texto em ASCII para evitar problemas de encoding em diferentes ambientes.
+- Os PDFs são artefatos versionados em `public/`, porque o site é estático e precisa servir os arquivos prontos.
+- Se um PDF estiver aberto em outro programa, a geração pode falhar no Windows com erro de arquivo bloqueado. Feche o visualizador e rode `npm run generate:pdf` novamente.
+- Textos em português usam acentuação completa. Nunca introduza versões sem acento: o teste `src/content/content.test.ts` bloqueia a maioria dos casos e a acentuação correta importa para busca em ATS.
 
 ## Autor
 
