@@ -15,7 +15,7 @@
     "build": "npm run generate:pdf && npm run check:pdf && tsc -b && vite build",
     "preview": "vite preview",
     "deploy": "npm run build && firebase deploy --only hosting",
-    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview --expires 7d",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview --expires 12h",
     "test": "vitest run",
     "test:watch": "vitest"
   },
