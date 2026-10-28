@@ -9,6 +9,8 @@ const MIN_CHARS_PER_PAGE = 300;
 
 const ACCENT_SAMPLES = ["formação", "experiência", "currículo"];
 
+const EXPECTED_TITLE = "Currículo Kaique";
+
 const readPdf = async () => {
   const path = resolve(PDF_PATH);
   const data = new Uint8Array(await readFile(path));
@@ -22,20 +24,30 @@ const readPdf = async () => {
     pages.push(text);
   }
 
+  const metadata = await doc.getMetadata();
+  const title = metadata.info?.Title ?? "";
+
   await doc.cleanup();
 
-  return pages;
+  return { pages, title };
 };
 
 const failures = [];
 
 let pages;
+let title;
 
 try {
-  pages = await readPdf();
+  ({ pages, title } = await readPdf());
 } catch (error) {
   console.error(`check-pdf falhou: nao foi possivel ler ${PDF_PATH} (${error.message})`);
   process.exit(1);
+}
+
+if (title !== EXPECTED_TITLE) {
+  console.warn(
+    `aviso: titulo do PDF e ${JSON.stringify(title)}, esperado ${JSON.stringify(EXPECTED_TITLE)}. Rode "npm run pdf:title" para o nome da aba ficar correto.`,
+  );
 }
 
 const fullText = pages.join("\n");
