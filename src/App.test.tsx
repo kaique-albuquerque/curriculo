@@ -84,13 +84,13 @@ describe("App", () => {
     const { container } = render(<App />);
     const links = [...container.querySelectorAll(".project-links a")];
 
-    expect(links.length).toBe(5);
+    expect(links.length).toBe(6);
     for (const link of links) {
       expect(link.getAttribute("target")).toBe("_blank");
       expect(link.getAttribute("rel")).toContain("noopener");
     }
     expect(links.map((link) => link.getAttribute("href"))).toContain(
-      "https://dashboard.plumagenetics.com/",
+      "https://github.com/kaique-albuquerque/streamgrab",
     );
   });
 
