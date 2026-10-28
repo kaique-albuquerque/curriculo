@@ -117,18 +117,21 @@ export const en: Content = {
   ],
   projects: [
     {
-      title: "Corporate dashboard in React and Node.js",
-      context: "Pluma Genetics · internal tool",
+      title: "StreamGrab — HLS and DASH video downloader",
+      context: "Open source · published on npm",
       description:
-        "Custom application with a React interface, Node.js API and faster queries than the previous indicator views.",
+        "Node.js tool that downloads videos from streaming platforms (m3u8 and DASH) and from sites like YouTube, Instagram and TikTok, with an Electron desktop app and FFmpeg installed automatically.",
       impact:
-        "Consolidated profitability, cost, target and market-share metrics in a single panel.",
-      note: "Financial data under confidentiality; access restricted to company credentials, with a walkthrough in interviews.",
-      stack: ["React", "TypeScript", "Node.js", "APIs"],
+        "Published on npm as streamgrab, with a CLI, Electron app and Docker support.",
+      stack: ["Node.js", "JavaScript", "Electron", "FFmpeg", "Docker"],
       links: [
         {
-          label: "dashboard.plumagenetics.com",
-          url: "https://dashboard.plumagenetics.com/",
+          label: "GitHub",
+          url: "https://github.com/kaique-albuquerque/streamgrab",
+        },
+        {
+          label: "npm",
+          url: "https://www.npmjs.com/package/streamgrab",
         },
       ],
     },
@@ -165,7 +168,7 @@ export const en: Content = {
       title: "Public GitHub projects",
       context: "Open source · applied study",
       description:
-        "Study repositories in React, TypeScript and applied AI: RAG with Neo4j, a tensor playground and an HLS downloader.",
+        "Study repositories in React, TypeScript and applied AI: RAG with Neo4j, a tensor playground and music recommendation with LangGraph.",
       impact: "Open code available for direct technical review.",
       stack: ["React", "TypeScript", "Python", "Node.js"],
       links: [

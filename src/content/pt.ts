@@ -117,18 +117,21 @@ export const pt: Content = {
   ],
   projects: [
     {
-      title: "Dashboard corporativo em React e Node.js",
-      context: "Pluma Genetics · uso interno",
+      title: "StreamGrab — downloader de vídeos HLS e DASH",
+      context: "Open source · publicado no npm",
       description:
-        "Aplicação própria com interface React, API em Node.js e consulta mais rápida que as visões de indicadores anteriores.",
+        "Ferramenta em Node.js que baixa vídeos de plataformas de streaming (m3u8 e DASH) e de sites como YouTube, Instagram e TikTok, com app desktop em Electron e FFmpeg instalado automaticamente.",
       impact:
-        "Reuniu rentabilidade, custos, metas e participação de mercado em um único painel.",
-      stack: ["React", "TypeScript", "Node.js", "APIs"],
-      note: "Dados financeiros sob confidencialidade; acesso restrito por credenciais da empresa, com demonstração na entrevista.",
+        "Publicada no npm como streamgrab, com CLI, app Electron e execução via Docker.",
+      stack: ["Node.js", "JavaScript", "Electron", "FFmpeg", "Docker"],
       links: [
         {
-          label: "dashboard.plumagenetics.com",
-          url: "https://dashboard.plumagenetics.com/",
+          label: "GitHub",
+          url: "https://github.com/kaique-albuquerque/streamgrab",
+        },
+        {
+          label: "npm",
+          url: "https://www.npmjs.com/package/streamgrab",
         },
       ],
     },
@@ -165,7 +168,7 @@ export const pt: Content = {
       title: "Projetos públicos no GitHub",
       context: "Open source · estudo aplicado",
       description:
-        "Repositórios de estudo em React, TypeScript e IA aplicada: RAG com Neo4j, playground de tensores e ferramenta de download de HLS.",
+        "Repositórios de estudo em React, TypeScript e IA aplicada: RAG com Neo4j, playground de tensores e recomendação musical com LangGraph.",
       impact: "Código aberto para avaliação técnica direta.",
       stack: ["React", "TypeScript", "Python", "Node.js"],
       links: [
