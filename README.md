@@ -42,6 +42,7 @@ src/
 
 scripts/
   check-pdf.mjs      Valida páginas, contatos e acentos do PDF único
+  set-pdf-title.mjs  Corrige o título (nome da aba) do PDF
   generate-og.mjs    Gera public/og-image.png (1200x630)
 
 bin/
@@ -121,7 +122,17 @@ Para validar o PDF (páginas, e-mail, telefone, LinkedIn, GitHub e acentos):
 npm run check:pdf
 ```
 
-A validação reprova arquivos em que o texto não é selecionável (exportados como imagem), porque nesse caso o ATS não consegue ler o conteúdo.
+### Título da aba
+
+O nome que aparece na aba do navegador vem do metadado `Title` do próprio PDF, não do HTML. Se o arquivo for reexportado do Canva, ele volta com "Currículo editável". Para corrigir:
+
+```bash
+npm run pdf:title
+```
+
+Isso grava `Title: Currículo Kaique`, `Author` e `Creator` no arquivo. O `check:pdf` avisa (sem falhar o build) quando o título está diferente.
+
+A validação também reprova arquivos em que o texto não é selecionável (exportados como imagem), porque nesse caso o ATS não consegue ler o conteúdo.
 
 Para regenerar a imagem de compartilhamento:
 
