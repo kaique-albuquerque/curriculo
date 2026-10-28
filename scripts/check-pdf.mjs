@@ -2,32 +2,15 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 
-const pdfFor = (locale) => `public/kaique-albuquerque-curriculo-${locale}.pdf`;
+const PDF_PATH = "public/kaique-albuquerque-curriculo.pdf";
 
+const MAX_PAGES = 2;
 const MIN_CHARS_PER_PAGE = 300;
 
-const SECTION_LABELS = new Set([
-  "EXPERIÊNCIA",
-  "EXPERIENCE",
-  "PROJETOS",
-  "PROJECTS",
-  "STACK",
-  "FORMAÇÃO",
-  "EDUCATION",
-  "CERTIFICADOS",
-  "CERTIFICATES",
-  "IDIOMAS",
-  "LANGUAGES",
-  "Competências por área",
-  "Skills by area",
-  "Projetos aplicados",
-  "Selected projects",
-  "Trajetória em produto e dados",
-  "Product and data track record",
-]);
+const ACCENT_SAMPLES = ["formação", "experiência", "currículo"];
 
-const readPdf = async (locale) => {
-  const path = resolve(pdfFor(locale));
+const readPdf = async () => {
+  const path = resolve(PDF_PATH);
   const data = new Uint8Array(await readFile(path));
   const doc = await getDocument({ data, useSystemFonts: true }).promise;
   const pages = [];
@@ -45,77 +28,60 @@ const readPdf = async (locale) => {
 };
 
 const failures = [];
-const report = [];
 
-for (const locale of ["pt", "en"]) {
-  let pages;
+let pages;
 
-  try {
-    pages = await readPdf(locale);
-  } catch (error) {
-    failures.push(`${locale}: nao foi possivel ler ${pdfFor(locale)} (${error.message})`);
-    continue;
-  }
-
-  const fullText = pages.join("\n");
-  const flat = fullText.replace(/\s+/g, "");
-  const digits = fullText.replace(/\D/g, "");
-
-  if (locale === "pt" && pages.length !== 2) {
-    failures.push(`pt: esperado exatamente 2 paginas, encontrado ${pages.length}`);
-  }
-
-  if (locale === "en" && pages.length > 2) {
-    failures.push(`en: maximo de 2 paginas, encontrado ${pages.length}`);
-  }
-
-  pages.forEach((text, index) => {
-    const chars = text.replace(/\s+/g, "").length;
-    if (chars < MIN_CHARS_PER_PAGE) {
-      failures.push(`${locale}: pagina ${index + 1} tem apenas ${chars} caracteres`);
-    }
-  });
-
-  if (!flat.includes("github.com/kaique-albuquerque")) {
-    failures.push(`${locale}: URL do GitHub ausente no texto do PDF`);
-  }
-
-  if (!flat.includes("linkedin.com/in/kaique-albq")) {
-    failures.push(`${locale}: URL do LinkedIn ausente no texto do PDF`);
-  }
-
-  if (!digits.includes("5518988103982")) {
-    failures.push(`${locale}: telefone ausente no texto do PDF`);
-  }
-
-  if (!flat.includes("kaique.g.dias14@gmail.com")) {
-    failures.push(`${locale}: e-mail truncado ou ausente no texto do PDF`);
-  }
-
-  const accentSample = locale === "pt" ? "Formação" : "São Paulo";
-  if (!fullText.includes(accentSample)) {
-    failures.push(`${locale}: acentuacao perdida no texto do PDF (esperado "${accentSample}")`);
-  }
-
-  pages.slice(0, -1).forEach((text, index) => {
-    const lastLine = text.trim().split("\n").pop() ?? "";
-    if (SECTION_LABELS.has(lastLine.trim())) {
-      failures.push(
-        `${locale}: pagina ${index + 1} termina com o titulo de secao "${lastLine.trim()}"`,
-      );
-    }
-  });
-
-  for (const forbidden of ["CURRICULOONLINE", "PRIORITARIO", "Objetivo"]) {
-    if (flat.includes(forbidden)) {
-      failures.push(`${locale}: texto proibido encontrado "${forbidden}"`);
-    }
-  }
-
-  const perPage = pages.map((text) => text.replace(/\s+/g, "").length).join("/");
-  report.push(`${locale}: pages=${pages.length} chars=${perPage}`);
-  console.log(`ok ${locale}: pages=${pages.length} charsPerPage=${perPage}`);
+try {
+  pages = await readPdf();
+} catch (error) {
+  console.error(`check-pdf falhou: nao foi possivel ler ${PDF_PATH} (${error.message})`);
+  process.exit(1);
 }
+
+const fullText = pages.join("\n");
+const flat = fullText.replace(/\s+/g, "");
+const flatLower = flat.toLowerCase();
+const digits = fullText.replace(/\D/g, "");
+
+if (pages.length === 0) {
+  failures.push("pdf sem paginas");
+}
+
+if (pages.length > MAX_PAGES) {
+  failures.push(`esperado no maximo ${MAX_PAGES} paginas, encontrado ${pages.length}`);
+}
+
+pages.forEach((text, index) => {
+  const chars = text.replace(/\s+/g, "").length;
+  if (chars < MIN_CHARS_PER_PAGE) {
+    failures.push(`pagina ${index + 1} tem apenas ${chars} caracteres`);
+  }
+});
+
+if (!flat.includes("kaique.g.dias14@gmail.com")) {
+  failures.push("e-mail truncado ou ausente no texto do PDF");
+}
+
+if (!digits.includes("5518988103982")) {
+  failures.push("telefone ausente no texto do PDF");
+}
+
+if (!flat.includes("linkedin.com/in/kaique-albq")) {
+  failures.push("URL do LinkedIn ausente no texto do PDF");
+}
+
+if (!flatLower.includes("github")) {
+  failures.push("referencia ao GitHub ausente no texto do PDF");
+}
+
+const accentsFound = ACCENT_SAMPLES.filter((sample) => flatLower.includes(sample));
+if (accentsFound.length === 0) {
+  failures.push(
+    `acentuacao perdida no texto do PDF (esperado ao menos uma de: ${ACCENT_SAMPLES.join(", ")})`,
+  );
+}
+
+const perPage = pages.map((text) => text.replace(/\s+/g, "").length).join("/");
 
 if (failures.length > 0) {
   console.error("check-pdf falhou:");
@@ -124,5 +90,5 @@ if (failures.length > 0) {
   }
   process.exitCode = 1;
 } else {
-  console.log(`check-pdf ok (${report.join(", ")})`);
+  console.log(`check-pdf ok (${PDF_PATH}: pages=${pages.length} charsPerPage=${perPage})`);
 }

@@ -72,7 +72,7 @@ export type Labels = {
     education: string;
     contact: string;
   };
-  downloadPdf: string;
+  viewPdf: string;
   viewProjects: string;
   contact: string;
   summary: string;

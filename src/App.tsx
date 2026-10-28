@@ -115,8 +115,13 @@ function App() {
           </div>
 
           <div className="hero-actions">
-            <a href={t.profile.resumePdf} className="button button-primary" download>
-              {t.labels.downloadPdf}
+            <a
+              href={t.profile.resumePdf}
+              className="button button-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.labels.viewPdf}
             </a>
             <a
               href={t.profile.github}
@@ -312,8 +317,13 @@ function App() {
         </div>
         <div className="footer-cta">
           <p className="footer-note">{t.labels.available}</p>
-          <a href={t.profile.resumePdf} className="button button-primary" download>
-            {t.labels.downloadPdf}
+          <a
+            href={t.profile.resumePdf}
+            className="button button-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.labels.viewPdf}
           </a>
         </div>
         <SocialLinks className="footer-links" profile={t.profile} />
