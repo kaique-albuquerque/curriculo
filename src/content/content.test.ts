@@ -24,8 +24,8 @@ describe.each(Object.entries(contents))("%s", (locale, content) => {
     expect(JSON.stringify(content)).not.toContain("kaique-albquerque");
   });
 
-  test("pdf do locale usa o arquivo do locale", () => {
-    expect(content.profile.resumePdf).toBe(`/kaique-albuquerque-curriculo-${locale}.pdf`);
+  test("pdf unico em portugues e usado nos dois locales", () => {
+    expect(content.profile.resumePdf).toBe("/kaique-albuquerque-curriculo.pdf");
   });
 
   test("linkedin aponta para o perfil atual", () => {

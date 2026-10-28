@@ -17,7 +17,7 @@ export const en: Content = {
     github: "https://github.com/kaique-albuquerque",
     whatsapp:
       "https://wa.me/5518988103982?text=Hi%2C+Kaique%2C+I+saw+your+online+resume+and+would+like+to+talk.",
-    resumePdf: "/kaique-albuquerque-curriculo-en.pdf",
+    resumePdf: "/kaique-albuquerque-curriculo.pdf",
     summary:
       "Full-stack developer with 4 years in IT. At Pluma Genetics I moved from administrative assistant to technical supervisor, shipping the company website, an internal mobile app and executive dashboards.",
     focus: ["React + TypeScript", "REST APIs", "Power BI", "React Native"],
@@ -32,7 +32,7 @@ export const en: Content = {
       education: "Education",
       contact: "Contact",
     },
-    downloadPdf: "Download PDF",
+    viewPdf: "Open PDF",
     viewProjects: "View projects",
     contact: "Get in touch",
     summary: "Summary",

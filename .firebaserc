@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "curriculo-kaique"
-  }
+  },
+  "targets": {
+    "curriculo-kaique": {
+      "hosting": {
+        "curriculo": [
+          "curriculokaique"
+        ],
+        "antigo": [
+          "curriculo-kaique"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

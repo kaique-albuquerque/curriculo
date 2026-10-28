@@ -117,19 +117,19 @@ const guide = {
     ["Cores, espacamento, layout e regras de impressao", "src/styles.css"],
     ["Titulo, descricao, Open Graph, favicon e JSON-LD", "index.html"],
     ["Foto do curriculo (mantenha o nome)", "public/profile.png"],
-    ["Geracao dos PDFs por idioma", "scripts/generate-pdf.mjs"],
-    ["Validacao dos PDFs (roda dentro do build)", "scripts/check-pdf.mjs"],
+    ["Validacao do PDF (roda dentro do build)", "scripts/check-pdf.mjs"],
+    ["PDF do curriculo, unico em portugues (mantenha o nome)", "public/kaique-albuquerque-curriculo.pdf"],
     ["Imagem de compartilhamento 1200x630", "scripts/generate-og.mjs"],
     ["Configuracao do Firebase Hosting", "firebase.json"],
   ],
   errors: [
     [
-      "esperado exatamente 2 paginas, encontrado 3",
-      "Conteudo novo estourou o limite A4. Reduza texto ou ajuste html { font-size: 10px } e paddings no bloco @media print de src/styles.css.",
+      "esperado no maximo 2 paginas",
+      "O PDF passou de 2 paginas. Edite o arquivo public/kaique-albuquerque-curriculo.pdf e enxugue o conteudo.",
     ],
     [
-      "Falha ao gerar PDF / arquivo bloqueado",
-      "Um PDF esta aberto no Acrobat ou Edge. Feche o visualizador e rode de novo.",
+      "e-mail truncado ou ausente",
+      "O texto do PDF nao e selecionavel ou perdeu o contato. Reexporte o PDF mantendo o texto como texto, nao imagem.",
     ],
     [
       'Failed to resolve import "./en"',
@@ -240,20 +240,28 @@ const actions = [
   },
   {
     key: "3",
-    label: "Gerar os PDFs (pt e en)",
-    hint: "npm run generate:pdf · grava em public/",
-    run: () => run("npm", ["run", "generate:pdf"]),
+    label: "Abrir o PDF do curriculo",
+    hint: "public/kaique-albuquerque-curriculo.pdf",
+    run: () => {
+      const file = join(projectRoot, "public", "kaique-albuquerque-curriculo.pdf");
+      spawnSync(
+        isWindows ? "cmd" : "open",
+        isWindows ? ["/c", "start", "", file] : [file],
+        { stdio: "ignore" },
+      );
+      console.log(dim(`Abrindo ${file}`));
+    },
   },
   {
     key: "4",
-    label: "Validar os PDFs",
-    hint: "npm run check:pdf · paginas, URLs, telefone e acentos",
+    label: "Validar o PDF",
+    hint: "npm run check:pdf · paginas, contato e acentos",
     run: () => run("npm", ["run", "check:pdf"]),
   },
   {
     key: "5",
     label: "Build completo",
-    hint: "npm run build · PDFs + validacao + tipos + dist/",
+    hint: "npm run build · validacao do PDF + tipos + dist/",
     run: () => run("npm", ["run", "build"]),
   },
   {
@@ -276,7 +284,7 @@ const actions = [
   {
     key: "7",
     label: "Publicar em producao",
-    hint: "npm run deploy · atualiza https://curriculo-kaique.web.app",
+    hint: "npm run deploy · atualiza https://curriculokaique.web.app",
     run: async () => {
       const firebase = firebaseReady();
       if (!firebase.ok) {
@@ -305,9 +313,9 @@ const actions = [
   {
     key: "9",
     label: "Abrir o site em producao",
-    hint: "https://curriculo-kaique.web.app",
+    hint: "https://curriculokaique.web.app",
     run: () => {
-      const url = "https://curriculo-kaique.web.app";
+      const url = "https://curriculokaique.web.app";
       spawnSync(
         isWindows ? "cmd" : "open",
         isWindows ? ["/c", "start", "", url] : [url],

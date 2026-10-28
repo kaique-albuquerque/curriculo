@@ -17,7 +17,7 @@ export const pt: Content = {
     github: "https://github.com/kaique-albuquerque",
     whatsapp:
       "https://wa.me/5518988103982?text=Ola%2C+Kaique%2C+vi+o+seu+curriculo+online+e+gostaria+de+conversar.",
-    resumePdf: "/kaique-albuquerque-curriculo-pt.pdf",
+    resumePdf: "/kaique-albuquerque-curriculo.pdf",
     summary:
       "Desenvolvedor full-stack com 4 anos em TI. Na Pluma Genetics evoluí de assistente administrativo a supervisor técnico, entregando site institucional, aplicativo interno e dashboards executivos.",
     focus: ["React + TypeScript", "APIs REST", "Power BI", "React Native"],
@@ -32,7 +32,7 @@ export const pt: Content = {
       education: "Formação",
       contact: "Contato",
     },
-    downloadPdf: "Baixar PDF",
+    viewPdf: "Abrir PDF",
     viewProjects: "Ver projetos",
     contact: "Entrar em contato",
     summary: "Resumo",
